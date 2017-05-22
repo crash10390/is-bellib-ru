@@ -5,4 +5,5 @@ python:
 env:
   - DJANGO="Django==1.11.6"
 script:
+  - pip install -r src/requirements.txt
   - python src/manage.py test
