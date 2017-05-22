@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Главная</a></li>
+                <li class="active">Поиск</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="search__section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">
+                        Поиск книг
+                    </h2>
+
+                    <form action="{% url "elcat:search_result" %}" method="get">
+                        <div class="form-group">
+                            <label class="control-label sr-only" for="searchRequestMainPage">Поиск</label>
+                            <input type="text" class="form-control" id="searchRequestMainPage" name="q"
+                                   aria-describedby="searchHelpBlock" placeholder="Введите запрос..."
+                                   value="{{ query }}">
+                            <span id="searchHelpBlock" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="">
+                                <button type="submit" class="btn btn-default center-block">Поиск</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по поисковой подсистеме доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция использования поисковой подсистемы</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    {% if query %}
+        <section class="search_result__section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 search_result__output">
+                        <h3>
+                            Результаты поиска
+                            <br>
+
+                        </h3>
+
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th></th>
+                                <th>Книга</th>
+                                <th>Библиотека</th>
+                                <th>Населенный пункт</th>
+                                <th>Действие</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for result in object_list %}
+                                <tr>
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+                                    <td>
+
+                                        {% if result.object.content == 'Звукозапись' %}
+                                            <i class="fa fa-volume-up"></i>
+                                        {% else %}
+                                            {% if result.object.content == 'Видеозапись' %}
+                                                <i class="fa fa-video-camera"></i>
+                                            {% else %}
+                                                {% if result.object.content == 'Электронный ресурс' %}
+                                                    <i class="fa fa-internet-explorer"></i>
+                                                {% else %}
+                                                    <i class="fa fa-book"></i>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <p>
+
+                                            {{ result.object.get_book_card }}
+                                            <i class="fa fa-rub"></i>
+
+
+                                        </p>
+                                    </td>
+                                    <td>
+                                        {{ result.object.library }}
+                                    </td>
+                                    <td>
+                                        {{ result.object.librarytown }}
+                                    </td>
+                                    <td>
+                                    {% if not result.object.isdeleted %}
+
+                                        {% if result.object.is_ordered %}
+                                            <button type="button"
+                                                    disabled
+                                                    class="btn btn-success">Книга заказана
+                                            </button>
+                                        {% elif result.object.is_issued %}
+
+                                            {% if perms.accounts.add_book and user.library ==  result.object.library %}
+
+                                                <button type="button"
+                                                        data-book_id="{{ result.object.pk }}"
+                                                        class="btn btn-info btn-back">Вернуть
+                                                </button>
+                                                <p></p>
+                                                <button type="button"
+                                                        data-book_id="{{ result.object.pk }}"
+                                                        class="btn btn-warning btn-prolonged">Пролонгировать
+                                                </button>
+                                            {% else %}
+                                                <button type="button"
+                                                        disabled
+                                                        class="btn btn-success">Книга выдана
+                                                </button>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if perms.accounts.add_book %}
+                                                <button type="button"
+                                                        data-book_id="{{ result.object.pk }}"
+                                                        class="btn btn-success btn-issued">Выдать
+                                                </button>
+                                                <p></p>
+                                                <button type="button"
+                                                        data-book_id="{{ result.object.pk }}"
+                                                        class="btn btn-danger btn-cancellation">Списать
+                                                </button>
+                                            {% else %}
+                                                <button type="button" {% if user.is_anonymous %}disabled{% endif %}
+                                                        data-book_id="{{ result.object.pk }}"
+                                                        class="btn btn-success btn-order-book">Заказать
+                                                </button>
+                                            {% endif %}
+                                        {% endif %}
+
+                                    {% endif %}
+                                    </td>
+
+                                </tr>
+
+                            {% empty %}
+                                <p>По запросу "<strong>{{ query }}</strong>" ничего не найдено...</p>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+{% block js_extra %}
+    <script src="{% static 'dist/search_result.bundle.js' %}"></script>
+{% endblock %}

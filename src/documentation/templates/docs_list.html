@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">
+                    Документация
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="row">
+            <div class="list-group">
+                {% for document in documents %}
+                    <a href="{{ document.file.url }}" target="_blank" class="list-group-item">{{ document.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+
+<section class="navbar__section">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">БЦБС</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Меню системы <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "elcat:search_result" %}">Поиск</a></li>
+                            {% if user.is_authenticated %}
+                                <li role="separator" class="divider"></li>
+                                {% if perms.accounts.add_book %}
+                                    <li><a href="{% url "elcat:add_book" %}">Пополнение БД книг</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li ><a href="{% url 'reports:list' %}">Аналитическая работа с БД</a></li>
+                                    <li role="separator" class="divider"></li>
+                                {% endif %}
+                                {% if perms.accounts.add_reader %}
+                                    <li><a href="{% url "accounts:add_reader" %}">Регистрация читателя</a></li>
+                                {% endif %}
+                                {% if perms.accounts.add_librarian %}
+                                    <li><a href="{% url "accounts:add_librarian" %}">Регистрация библиотекаря</a></li>
+                                {% endif %}
+
+                            {% endif %}
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url "docs:list" %}">Документация</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if not user.is_anonymous %}
+                        {% if perms.accounts.add_book %}
+                            <li><a href="{% url "accounts:profile_librarian" %}">{{ user.username }}</a></li>
+                        {% else %}
+                            <li><a href="{% url "accounts:profile_reader" %}">{{ user.username }}</a></li>
+
+                        {% endif %}
+                        <li><a href="{% url "accounts:logout" %}">Выход</a></li>
+                    {% else %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">Вход<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                {% if user.is_anonymous %}
+                                    <li><a href="{% url 'accounts:login' %}">Вход в систему</a></li>
+
+                                {% endif %}
+
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</section>
+
+
+{% block content %}{% endblock %}
+
+<script
+        src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="{% static 'dist/app.bundle.js' %}"></script>
+
+{% block js_extra %}
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">Регистрация</li>
+            </ol>
+        </div>
+    </section>
+
+<section class="search__section common__container_margin-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 common__container_margin-bottom">
+                    <h2 class="text-center">
+                        Регистрация
+                    </h2>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="inputFirstName">
+                                Имя
+                            </label>
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="Имя">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLastName">
+                                Фамилия
+                            </label>
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Фамилия">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputID">
+                                Номер читательского билета
+                            </label>
+                            <input type="text" class="form-control" id="inputID" placeholder="Номер читательского билета">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">
+                                Телефон
+                            </label>
+                            <input type="tel" class="form-control" id="inputPhone" placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail1">Email адрес</label>
+                            <input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword1">Пароль</label>
+                            <input type="password" class="form-control" id="inputPassword1"
+                                   placeholder="Пароль">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword2">Подтверждение пароля</label>
+                            <input type="password" class="form-control" id="inputPassword2"
+                                   placeholder="Пароль">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Зарегистрировать как библиотекаря
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-default center-block">Регистрация</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по регистрации и использованию системы доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция по регистрации и использованию системой</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+
+{% endblock %}

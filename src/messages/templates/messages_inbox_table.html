@@ -1,0 +1,53 @@
+ <section class="dashboard__section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12 common__container_margin-bottom">
+                    <h2 class="text-center">
+                        Сообщения ИС
+                    </h2>
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Информация</th>
+                            <th>Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for message in messages %}
+                        <tr>
+                            <!-- COUNTER -->
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+
+                            <!-- REPORT -->
+                            <td>
+                               {{ message.subject }}
+                                <br>
+                                {{ message.text }}
+                            </td>
+
+                            <!-- LAUNCH BUTTON -->
+                            <td>
+                                <button type="button" class="btn btn-info center-block">
+                                    <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+                                     Открыть
+                                </button>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>

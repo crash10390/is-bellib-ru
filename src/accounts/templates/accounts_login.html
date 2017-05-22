@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">Вход</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="search__section common__container_margin-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 common__container_margin-bottom">
+                    <h2 class="text-center">
+                        Вход
+                    </h2>
+
+                    <form method="post" action=".">
+                        {% csrf_token %}
+                        <div class="form-group {% if  form.email.errors %} has-error {% endif %}">
+                            <label class="control-label" for="inputEmail">Email адрес</label>
+                            <input type="email" class="form-control" name="email" required id="inputEmail" placeholder="Email"
+                                   value="{{ form.email.value|default:'' }}">
+                                {% for error in form.email.errors %}
+                                    <span class="help-block">{{ error }}</span>
+                                {% endfor %}
+                        </div>
+                        <div class="form-group {% if form.password.errors %} has-error {% endif %}">
+                            <label for="inputPassword">Пароль</label>
+                            <input type="password" class="form-control" required name="password" id="inputPassword"
+                                   placeholder="Пароль">
+
+                            {% for error in form.password.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+
+                        </div>
+                        {% if formError %}
+                            <div class="form-group  has-error ">
+                                <span class="help-block">{{ formError }}</span>
+                            </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-default center-block">Вход</button>
+                    </form>
+                </div>
+
+                <div class="col-md-12">
+                    <p>
+                        Если вы забыли логин или пароль, воспользуйтесь формой <a href="{% url 'accounts:reminder' %}">восстановления
+                        учетных
+                        данных</a>
+                    </p>
+
+                    <p>
+                        В случае отсутсвия учетных данных, воспользуйтесь формой <a href="{% url 'accounts:signup' %}">регистрации</a>
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по регистрации и использованию системы доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция по регистрации и использованию системой</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+
+{% endblock %}

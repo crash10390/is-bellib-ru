@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">Регистрация читателя</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="search__section common__container_margin-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 common__container_margin-bottom">
+                    <h2 class="text-center">
+                        Регистрация читателя
+                    </h2>
+
+                    <form id="validateThisID" data-js-validation="true" novalidate class="" action="." method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="inputLastName">
+                                Фамилия *
+                            </label>
+                            <input type="text" class="form-control" id="inputLastName" placeholder="Фамилия"
+                                   name="last_name"
+                                   value="{{ form.last_name.value|default:'' }}"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputFirstName">
+                                Имя *
+                            </label>
+                            <input type="text" class="form-control" id="inputFirstName" placeholder="Имя"
+                                   data-validation-require="true"
+                                   value="{{ form.first_name.value|default:'' }}"
+                                   name="first_name"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSurName">
+                                Отчество *
+                            </label>
+                            <input type="text" class="form-control" id="inputSurName" placeholder="Отчество"
+                                   name="middle_name"
+                                   value="{{ form.middle_name.value|default:'' }}"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputID">
+                                Номер читательского билета *
+                            </label>
+                            <input type="text" class="form-control" id="inputID"
+                                   placeholder="Номер читательского билета"
+                                   data-validation-require="true"
+                                   value="{{ form.ticket_number.value|default:'' }}"
+                                   name="ticket_number"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPhone">
+                                Телефон *
+                            </label>
+                            <input type="tel" class="form-control" id="inputPhone" placeholder="Phone"
+                                   data-validation-require="true"
+                                   data-validation-templ="phone"
+                                   value="{{ form.phone.value|default:'' }}"
+                                   name="phone"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail1">
+                                Email адрес
+                            </label>
+                            <input type="email" class="form-control" id="inputEmail1" placeholder="Email"
+                                   data-validation-require="true"
+                                   data-validation-templ="email"
+                                   value="{{ form.email.value|default:'' }}"
+                                   name="email"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword1">
+                                Пароль *
+                            </label>
+                            <input type="password" class="form-control" id="inputPassword1"
+                                   placeholder="Пароль"
+                                   data-validation-require="true"
+                                   name="password">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword2">
+                                Подтверждение пароля *
+                            </label>
+                            <input type="password" class="form-control" id="inputPassword2"
+                                   placeholder="Пароль"
+                                   data-validation-require="true"
+                                   name="confirm_password">
+                            <span class="help-block"></span>
+                        </div>
+                        {% if form_error %}
+                            <span class="text-danger">{{ form_error }}</span>
+                        {% endif %}
+                        <button type="submit" class="btn btn-default center-block">Регистрация</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по регистрации и использованию системы доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция по регистрации и использованию системой</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}

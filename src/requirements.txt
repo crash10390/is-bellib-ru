@@ -1,0 +1,7 @@
+Django==1.10.6
+django-haystack==2.6.0
+pysolr==3.6.0
+requests==2.13.0
+wheel==0.24.0
+gunicorn
+mysqlclient

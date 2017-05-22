@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="active">Главная</li>
+
+            </ol>
+        </div>
+    </section>
+
+    <section class="jumbotron__section">
+        <div class="container">
+            <div class=""></div>
+            <div class="jumbotron">
+                <h2 class="text-center">
+                    Разработка электронной библиотечной системы с интернет-доступом для Белоярской ЦБС ХМАО-Югра
+                </h2>
+
+                <p class="text-right">
+                    Дипломная работа. Студент: Иванов Дмитрий Сергеевич
+                </p>
+
+                <img src="{% static 'img/bl__mainpage.jpg' %}" class="img-responsive center-block" alt="Библиотека">
+
+            </div>
+        </div>
+    </section>
+
+    <section class="search__section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">
+                        Поиск книг
+                    </h2>
+
+                    <form action="/elcat/search/" method="get">
+                        <div class="form-group">
+                            <label class="control-label sr-only" for="searchRequestMainPage">Поиск</label>
+                            <input type="text" class="form-control" id="searchRequestMainPage" name="q"
+                                   aria-describedby="searchHelpBlock" placeholder="Введите запрос...">
+                            <span id="searchHelpBlock" class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="">
+                                <button type="submit" class="btn btn-default center-block">Поиск</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

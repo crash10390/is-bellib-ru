@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">
+                    Пополнение БД книг
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="add_book__section common__container_margin-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 common__container_margin-bottom">
+                    <h2 class="text-center">
+                        Пополнение базы данных экземпляром книги
+                    </h2>
+
+                    <form id="validateThisID" data-js-validation="true" novalidate class="" action="." method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="inputBookName" class="control-label">
+                                Название *
+                            </label>
+                            <input type="text" class="form-control" id="inputBookName"
+                                   placeholder="Название"
+                                   name="name"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAuthor" class="control-label">
+                                Автор *
+                            </label>
+                            <input multiple class="form-control" id="inputAuthor"
+                                   placeholder="Автор"
+                                   name="author_id"
+                                   data-validation-require="true"
+                                    >
+
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLibrary" class="control-label">
+                                Библиотека *
+                            </label>
+                            <select type="text" class="form-control" id="inputLibrary"
+                                   placeholder="Библиотека"
+                                    name="library"
+                                   data-validation-require="true"
+                                    >
+
+                                {% for library in library_list %}
+                                    <option value="{{ library.pk }}">{{ library }}</option>
+                                {% endfor %}
+
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPagesCount" class="control-label">
+                                Количество страниц *
+                            </label>
+                            <input type="text" class="form-control" id="inputPagesCount"
+                                   placeholder="Количество страниц"
+                                   name="pages"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputYear" class="control-label">
+                                Год *
+                            </label>
+                            <input type="text" class="form-control" id="inputYear"
+                                   placeholder="Год"
+                                   name="year"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPart" class="control-label">
+                                Том *
+                            </label>
+                            <input type="text" class="form-control" id="inputPart"
+                                   placeholder="Том"
+                                   name="series"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPrice" class="control-label">
+                                Цена *
+                            </label>
+                            <input type="text" class="form-control" id="inputPrice"
+                                   placeholder="Цена"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputInventNumber" class="control-label">
+                                Инвентарный номер *
+                            </label>
+                            <input type="text" class="form-control" id="inputInventNumber"
+                                   placeholder="Инвентарный номер"
+                                   name="inventory"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputISBN" class="control-label">
+                                ISBN *
+                            </label>
+                            <input type="text" class="form-control" id="inputISBN"
+                                   placeholder="ISBN"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputISBN10" class="control-label">
+                                ISBN10 *
+                            </label>
+                            <input type="text" class="form-control" id="inputISBN10"
+                                   placeholder="ISBN10"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputGenre" class="control-label">
+                                Жанр *
+                            </label>
+                            <input type="text" class="form-control" id="inputGenre"
+                                   placeholder="Жанр"
+                                    name="genre"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLanguage" class="control-label">
+                                Язык *
+                            </label>
+                            <input type="text" class="form-control" id="inputLanguage"
+                                   placeholder="Язык"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSeries" class="control-label">
+                                Серия *
+                            </label>
+                            <input type="text" class="form-control" id="inputSeries"
+                                   placeholder="Серия"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBBK1" class="control-label">
+                                ББК1 *
+                            </label>
+                            <input type="text" class="form-control" id="inputBBK1"
+                                   placeholder="ББК1"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBBK2" class="control-label">
+                                ББК2 *
+                            </label>
+                            <input type="text" class="form-control" id="inputBBK2"
+                                   placeholder="ББК2"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputContent" class="control-label">
+                                Контент *
+                            </label>
+                            <input type="text" class="form-control" id="inputContent"
+                                   placeholder="Контент"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputShelfPlace" class="control-label">
+                                Место на полке *
+                            </label>
+                            <input type="text" class="form-control" id="inputShelfPlace"
+                                   placeholder="Место на полке"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPublisher" class="control-label">
+                                издательство *
+                            </label>
+                            <input type="text" class="form-control" id="inputPublisher"
+                                   placeholder="издательство"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPublisherTown" class="control-label">
+                                Город издательства *
+                            </label>
+                            <input type="text" class="form-control" id="inputPublisherTown"
+                                   placeholder="Город издательства"
+                                   data-validation-require="true"
+                                    >
+                            <span class="help-block"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-default center-block">
+                            Выполнить
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по пополнению БД электронного каталога доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция пополнения БД ЭК</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js_extra %}
+    <scripts src="{% static 'dist/add_book.bundle.js' %}"></scripts>
+{% endblock %}

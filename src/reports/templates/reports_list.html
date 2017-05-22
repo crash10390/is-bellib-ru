@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">Аналитическая работа с БД</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="query__section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="text-center">
+                        Аналитическая работа с БД
+                    </h2>
+
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Отчет</th>
+                            <th>Описание</th>
+                            <th>Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for report in reports %}
+                            <tr>
+                                <!-- COUNTER -->
+                                <td>
+                                    {{ forloop.counter }}
+                                </td>
+
+                                <!-- REPORT -->
+                                <td>
+                                    {{ report.name }}
+                                </td>
+                                <td>
+                                    {{ report.note }}
+                                </td>
+
+                                <!-- LAUNCH BUTTON -->
+                                <td>
+                                    <a type="button" class="btn btn-success" href="{{ report.get_exec_url }}">
+                                        <i class="fa fa-play" aria-hidden="true"></i>
+                                        Выполнить
+                                    </a>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по работе с аналитическими отчетами доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция использования аналитической подсистемы</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}

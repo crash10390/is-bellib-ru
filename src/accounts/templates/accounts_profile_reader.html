@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load message_tags staticfiles %}
+{% block content %}
+    <section class="breadcrumb__section breadcrumb__container_margin-top">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li class="active">Профиль читателя: {{ reader }}</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="user_profile__section common__container_margin-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 common__container_margin-bottom">
+                    <h2 class="text-center">
+                        Профиль читателя
+                    </h2>
+                    {% if perms.accounts.add_book %}
+                        {% if reader.edit_request %}
+                            <form id="validateThisID" data-js-validation="true" novalidate class="" action="."
+                                  method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="inputLastName">
+                                        Фамилия *
+                                    </label>
+                                    <input type="text" class="form-control" id="inputLastName" name="last_name"
+                                           placeholder="Фамилия"
+                                           data-validation-require="true"
+
+                                           value="{{ reader.last_name }}"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputFirstName">
+                                        Имя *
+                                    </label>
+                                    <input type="text" class="form-control" name="first_name" id="inputFirstName"
+                                           placeholder="Имя"
+                                           data-validation-require="true"
+
+                                           value="{{ reader.first_name }}"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSurName">
+                                        Отчество *
+                                    </label>
+                                    <input type="text" class="form-control" name="middle_name" id="inputSurName"
+                                           placeholder="Отчество"
+                                           data-validation-require="true"
+
+                                           value="{{ reader.middle_name }}"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputID">
+                                        Номер читательского билета *
+                                    </label>
+                                    <input type="text" class="form-control" id="inputID"
+                                           placeholder="Номер читательского билета"
+                                           data-validation-require="true"
+                                           name="ticket_number"
+                                           value="{{ reader.ticket_number }}"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPhone">
+                                        Телефон *
+                                    </label>
+                                    <input type="tel" class="form-control" id="inputPhone" placeholder="Phone"
+                                           data-validation-require="true"
+                                           data-validation-templ="phone"
+                                           name="phone"
+                                           value="{{ reader.phone }}"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1">
+                                        Email адрес
+                                    </label>
+                                    <input type="email" class="form-control" id="inputEmail1" placeholder="Email"
+                                           data-validation-require="false"
+                                           data-validation-templ="email"
+                                           name="email"
+                                           value="{{ reader.email }}"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+
+                                <h5 class="">
+                                    <strong>
+                                        Изменить пароль
+                                    </strong>
+                                </h5>
+
+                                <div class="form-group">
+                                    <label for="inputPassword1">
+                                        Пароль *
+                                    </label>
+                                    <input type="password" class="form-control" id="inputPassword1"
+                                           placeholder="Пароль"
+                                           data-validation-require="false"
+                                           name="password"
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword2">
+                                        Подтверждение пароля *
+                                    </label>
+                                    <input type="password" class="form-control" id="inputPassword2"
+                                           placeholder="Пароль"
+                                           data-validation-require="false"
+
+                                    >
+                                    <span class="help-block"></span>
+                                </div>
+
+                                <button type="submit" class="btn btn-info center-block">Редактировать данные</button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-primary btn-change-profile-request" id="changeProfileRequestProfile">
+                            Запрос на редактирование профиля
+                        </button>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="documentation_link__section">
+        <div class="container">
+            <ul class="documentation_link__list">
+                <li class="documentation_link__list_item">
+                    <div class="alert alert-info" role="alert">
+                        <span>
+                            <strong>Помощь</strong> по редактированию данных читателя доступна по ссылке:
+                        </span>
+                        <a href="#">Инструкция по редактированию данных читателя</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    {% if reader == user %}
+        {% messages_inbox_table context %}
+    {% endif %}
+
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{% static 'dist/accounts.bundle.js' %}"></script>
+{% endblock %}
