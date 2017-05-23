@@ -106,7 +106,7 @@
                             <label for="library">Библиотека</label>
                                 <select class="form-control" name="library">
                                     {% for library in library_list %}
-                                        <option value="{{ library.library_id }}">{{ library.name }}</option>
+                                        <option value="{{ library.library_id }}" {% if library == user.library %}selected{% endif %}>{{ library.name }}</option>
                                     {% endfor %}
                                 </select>
 

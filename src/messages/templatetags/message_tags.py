@@ -5,7 +5,7 @@ register = template.Library()
 
 @register.inclusion_tag('messages_inbox_table.html', takes_context=True, name='messages_inbox_table')
 def messages_inbox_table(context, args):
-    context["messages"] = Message.objects.get_inbox(context.request.user)
+    context["messages"] = Message.objects.get_unread(context.request.user)
     return context
 
 

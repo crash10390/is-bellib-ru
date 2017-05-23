@@ -152,3 +152,13 @@ class ApiBookCancellationView(PermissionRequiredMixin, DetailView):
             "success": True
         }
         return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+class ApiBookOrderClose(PermissionRequiredMixin, DetailView):
+    permission_required = 'accounts.add_book'
+    model = BookOrder
+
+    def post(self, request, *args, **kwargs):
+        book_order = self.get_object()
+        book_order.close_order()
+        return HttpResponse(json.dumps({"success": True}), content_type='application/json')

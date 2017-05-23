@@ -18,3 +18,6 @@ class MessagesManager(models.Manager):
                                     system_context=context)
         direct_message.save()
         return direct_message
+
+    def get_for_type(self, type, context):
+        return self.filter(type=type, system_context=context, is_read=False)

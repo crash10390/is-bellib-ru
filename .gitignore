@@ -94,3 +94,4 @@ node_modules
 local_settings.py
 media
 db
+*.env

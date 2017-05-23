@@ -47,3 +47,12 @@ def book_order_create_callback(sender, **kwargs):
     for librarian in librarians:
         Message.objects.send_system_message(subject=title, message=text, recipient=librarian, type='book_order',
                                             context=str(sender.pk))
+
+
+@receiver(book_order_close)
+def book_order_close_callback(sender, **kwargs):
+    messages = Message.objects.get_for_type('book_order', sender.id)
+    for message in messages:
+        message.is_read = True
+        message.save()
+    sender.reader.email_user('Заказ книги сполнен', '''Книга "%s" доставлена.''' % (sender.book.name))

@@ -64,6 +64,13 @@ class IssuedBooks(models.Model):
     reader = models.ForeignKey(User, verbose_name='Читатель')
     prolong_request = models.BooleanField(verbose_name='Запрошено продление', default=False)
 
+    class Meta:
+        verbose_name = 'Выданная книга'
+        verbose_name_plural = 'Выданные книги'
+
+    def __str__(self):
+        return '%s [%s]' % (self.book.name, self.reader.get_short_name())
+
     def prolong(self, days=7):
         date = timezone.now()
         self.start_date = date + datetime.timedelta(days=days)
@@ -77,6 +84,13 @@ class BookOrder(models.Model):
     book = models.ForeignKey(book, verbose_name='книга')
     closed = models.BooleanField(verbose_name='Заказ закрыт', default=False)
     objects = OrderBooksManager()
+
+    class Meta:
+        verbose_name = 'Заказ на межбиблиотечный обмен'
+        verbose_name_plural = 'Заказы на межбиблиотечный обмен'
+
+    def __str__(self):
+        return '%s; %s' % (self.book.name, self.reader.get_short_name())
 
     def close_order(self):
         self.closed = True
