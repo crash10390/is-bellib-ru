@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.utils import timezone
 import datetime
 from elcat.models import library, book
-from .managers import CustomUserManager, OrderBooksManager
+from .managers import CustomUserManager, OrderBooksManager, UserReminderRequestManager
 from .signals import book_order_close, book_order_create
 
 
@@ -89,3 +89,21 @@ class BookOrder(models.Model):
         super(BookOrder, self).save(force_insert, force_update, using, update_fields)
         if send_signal:
             book_order_create.send(self, book_order=self)
+
+
+class UserReminderRequest(models.Model):
+    user = models.ForeignKey(User, verbose_name='Пользователь')
+    token = models.CharField(verbose_name='Токен', max_length=150)
+    created = models.DateTimeField(default=timezone.now)
+
+    objects = UserReminderRequestManager()
+
+    class Meta:
+        verbose_name = 'Заброс на сброс пароля'
+        verbose_name_plural = 'Запросы на срос пароля'
+
+    def __str__(self):
+        return '%s:%s' % (self.user.get_short_name(), self.created)
+
+    def get_absolute_url(self):
+        return reverse_lazy('accounts:refresh_password', kwargs={'token': self.token})

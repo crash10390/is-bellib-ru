@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load  message_tags %}
+{% load  message_tags staticfiles %}
 
 {% block content %}
     <section class="breadcrumb__section breadcrumb__container_margin-top">
@@ -145,4 +145,7 @@
 
         {% messages_inbox_table context %}
 
+{% endblock %}
+{% block js_extra %}
+    <script src="{% static 'dist/message_box.bundle.js' %}"></script>
 {% endblock %}

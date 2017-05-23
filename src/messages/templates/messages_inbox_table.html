@@ -1,53 +1,56 @@
- <section class="dashboard__section">
-        <div class="container">
+<section class="dashboard__section">
+    <div class="container">
 
-            <div class="row">
-                <div class="col-md-12 common__container_margin-bottom">
-                    <h2 class="text-center">
-                        Сообщения ИС
-                    </h2>
+        <div class="row">
+            <div class="col-md-12 common__container_margin-bottom">
+                <h2 class="text-center">
+                    Сообщения ИС
+                </h2>
 
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Информация</th>
-                            <th>Действие</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for message in messages %}
-                        <tr>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Информация</th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody id="message-box">
+                    {% for message in messages %}
+                        <tr class="message" data-id="{{ message.id }}" data-type="{{ message.type }}"
+                            data-context="{{ message.system_context }}">
                             <!-- COUNTER -->
                             <td>
                                 {{ forloop.counter }}
                             </td>
-
                             <!-- REPORT -->
                             <td>
-                               {{ message.subject }}
+                                <span class="message-subject">
+                                    {{ message.subject }}
+                                    </span>
                                 <br>
-                                {{ message.text }}
+                                <span class="message-text">
+                                    {{ message.text }}
+                                </span>
                             </td>
-
                             <!-- LAUNCH BUTTON -->
                             <td>
-                                <button type="button" class="btn btn-info center-block">
+                                <button type="button" class="btn btn-info center-block open-message-button">
                                     <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
-                                     Открыть
+                                    Открыть
                                 </button>
                             </td>
 
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
 
 
-                        </tbody>
-                    </table>
-
-                </div>
+                    </tbody>
+                </table>
 
             </div>
 
         </div>
-    </section>
+
+    </div>
+</section>

@@ -5,6 +5,7 @@ const config = {
         'app': './app/app.js',
         'add_book': './app/elcat/add_book.js',
         'accounts': './app/accounts/accounts.js',
+        'message_box': './app/accounts/message.box.js',
         'search_result': './app/elcat/search_result.js'
     },
     output: {

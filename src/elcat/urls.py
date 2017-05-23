@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^api/readers/$', ApiReadersView.as_view(), name='api_readers'),
     url(r'^api/bookinfo/(?P<pk>[\d-]+)/$', ApiBookInfoView.as_view(), name='api_bookinfo'),
     url(r'^api/bookorder/(?P<pk>[\d-]+)/$', ApiBookOrderView.as_view(), name='api_bookorder'),
+   # url(r'^api/booktransfer/complete/(?P<pk>[\d-]+)/$', ApiBookOrderView.as_view(), name='api_book_transfer_complete'),
     url(r'^api/issues/(?P<pk>[\d-]+)/$', ApiBookIssueView.as_view(), name='api_issued'),
     url(r'^api/bookback/(?P<pk>[\d-]+)/$', ApiBookBackView.as_view(), name='api_bookback'),
     url(r'^api/prolonged/(?P<pk>[\d-]+)/$', ApiBookProlongedView.as_view(), name='api_prolonged'),

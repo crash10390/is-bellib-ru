@@ -35,9 +35,9 @@ class book(models.Model):
     def get_book_card(self):
         result = ""
         for book_author in self.author_id.all():
-            result += "%s " % book_author.name
+            result += "%s, " % book_author.name
         if self.name:
-            result += "%s ;" % self.name
+            result += "%s; " % self.name
         if self.content:
             result += "[%s] " % self.content
         if self.genre is not None and self.genre.name != 'null':
@@ -48,7 +48,7 @@ class book(models.Model):
             result += " - %s c. %s; " % (self.pages, self.series if self.series.name != 'null' else "")
         if self.isbn != 'null':
             result += " - %s;" % self.isbn
-        if self.inventory != 'null':
+        if self.inventory != 'null' and self.inventory is not None:
             result += " - инв. %s;" % self.inventory
         if self.price:
             result += " - %s " % self.price

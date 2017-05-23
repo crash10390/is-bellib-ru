@@ -7,10 +7,14 @@ class BaseModalDialog extends BaseElement {
         this.title = options.title || "";
         this.content = options.content || "";
         this.okCaption = options.okCaption || "ОК";
+        this.hideOkButton = options.hideOkButton || false;
         this.callback = options.callback || null;
         this.modalMode = options.modalMode || "md";
         this.render(true);
         $('body').append(this.el);
+        if (this.hideOkButton) {
+            this.$('.btn-ok').addClass('hidden');
+        }
         this.show();
     }
 
@@ -24,14 +28,14 @@ class BaseModalDialog extends BaseElement {
 
     setupListeners() {
         if (this.callback) {
-            this.$('.btn-ok').on('click', (e)=> {
+            this.$('.btn-ok').on('click', (e) => {
                 this.runCallback(e);
             });
         }
     }
 
     runCallback(e) {
-        let result =  this.callback(e);
+        let result = this.callback(e);
         if (result) {
             this.hide();
         }
