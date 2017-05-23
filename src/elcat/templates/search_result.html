@@ -77,7 +77,9 @@
                             </thead>
                             <tbody>
                             {% for result in object_list %}
-                                <tr>
+                                {% if result.object.isdeleted %}
+                                {% else %}
+                                    <tr>
                                     <td>
                                         {{ forloop.counter }}
                                     </td>
@@ -162,7 +164,7 @@
                                     </td>
 
                                 </tr>
-
+                                {% endif %}
                             {% empty %}
                                 <p>По запросу "<strong>{{ query }}</strong>" ничего не найдено...</p>
                             {% endfor %}

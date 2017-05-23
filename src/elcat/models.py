@@ -36,6 +36,8 @@ class book(models.Model):
         result = ""
         for book_author in self.author_id.all():
             result += "%s " % book_author.name
+        if self.name:
+            result += "%s ;" % self.name
         if self.content:
             result += "[%s] " % self.content
         if self.genre is not None and self.genre.name != 'null':
