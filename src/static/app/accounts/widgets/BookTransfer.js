@@ -1,5 +1,5 @@
 const BaseElement = require('../../components/BaseElement');
-const TRANSFER_COMPLETE_URL = 'api/booktransfer/complete/';
+const TRANSFER_COMPLETE_URL = '/elcat/api/booktransfer/complete/';
 let template = require('./BookTransfer.template.handlebars');
 
 class BookTransfer extends BaseElement {
@@ -18,7 +18,7 @@ class BookTransfer extends BaseElement {
     }
 
     transferComplete() {
-        $.ajax(TRANSFER_COMPLETE_URL+this.message.system_context, {method:'post'}).then(
+        $.ajax(TRANSFER_COMPLETE_URL+this.message.system_context+'/', {method:'post'}).then(
             (response)=>{
                 if(response.success){
                     this.closeCallback();
