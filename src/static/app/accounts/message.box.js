@@ -19,8 +19,8 @@ class Message {
         this.id = this.$el.data('id');
         this.type = this.$el.data('type');
         this.context = this.$el.data('context');
-        this.subject = this.$el('.message-subject').html();
-        this.text = this.$el('.message-text').html();
+        this.subject = this.$('.message-subject').html();
+        this.text = this.$('.message-text').html();
         this.setMode(this.type);
     }
 
