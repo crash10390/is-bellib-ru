@@ -161,4 +161,6 @@ class ApiBookOrderClose(PermissionRequiredMixin, DetailView):
     def post(self, request, *args, **kwargs):
         book_order = self.get_object()
         book_order.close_order()
+        issued_book = IssuedBooks(book=book_order.book, reader=book_order.reader)
+        issued_book.save()
         return HttpResponse(json.dumps({"success": True}), content_type='application/json')
